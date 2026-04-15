@@ -1,15 +1,12 @@
 replicaCount: 2
-
 image:
-  repository: kamaldocker29/fastapi-cicd-demo
-  tag: latest
+  repository: ""
+  tag: 0915fe9
   pullPolicy: IfNotPresent
-
 service:
   type: ClusterIP
   port: 80
   targetPort: 8000
-
 resources:
   requests:
     cpu: 100m
@@ -17,10 +14,8 @@ resources:
   limits:
     cpu: 500m
     memory: 512Mi
-
 probes:
   path: /healthz
-
 ingress:
   enabled: false
   className: nginx
