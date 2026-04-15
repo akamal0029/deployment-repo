@@ -1,7 +1,7 @@
 replicaCount: 2
 image:
   repository: kamaldocker29/fastapi-cicd-demo
-  tag: 0915fe9
+  tag: 8cfbd36
   pullPolicy: IfNotPresent
 service:
   type: ClusterIP
