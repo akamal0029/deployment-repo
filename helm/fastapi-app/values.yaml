@@ -1,6 +1,6 @@
 replicaCount: 2
 image:
-  repository: ""
+  repository: kamaldocker29/fastapi-cicd-demo
   tag: 0915fe9
   pullPolicy: IfNotPresent
 service:
