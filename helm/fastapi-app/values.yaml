@@ -1,0 +1,27 @@
+replicaCount: 2
+
+image:
+  repository: your-dockerhub-user/fastapi-cicd-demo
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8000
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+probes:
+  path: /healthz
+
+ingress:
+  enabled: false
+  className: nginx
+  host: fastapi.example.com
