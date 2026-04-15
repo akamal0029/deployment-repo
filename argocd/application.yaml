@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/your-org/fastapi-deployment.git
+    repoURL: https://github.com/akamal0029/deployment-repo.git
     targetRevision: main
     path: helm/fastapi-app
     helm:

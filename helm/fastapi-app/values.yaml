@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  repository: your-dockerhub-user/fastapi-cicd-demo
+  repository: kamaldocker29/fastapi-cicd-demo
   tag: latest
   pullPolicy: IfNotPresent
 
