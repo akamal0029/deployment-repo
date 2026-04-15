@@ -1,27 +1,30 @@
+{{- if .Values.secondaryService.enabled -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "fastapi-app.fullname" . }}
+  name: {{ include "fastapi-app.fullname" . }}-{{ .Values.secondaryService.nameSuffix }}
   labels:
     {{- include "fastapi-app.labels" . | nindent 4 }}
+    app.kubernetes.io/component: {{ .Values.secondaryService.nameSuffix }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.secondaryService.replicaCount }}
   selector:
     matchLabels:
       {{- include "fastapi-app.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: {{ .Values.secondaryService.nameSuffix }}
   template:
     metadata:
       labels:
         {{- include "fastapi-app.selectorLabels" . | nindent 8 }}
-        app.kubernetes.io/component: api
+        app.kubernetes.io/component: {{ .Values.secondaryService.nameSuffix }}
     spec:
       containers:
-        - name: {{ include "fastapi-app.name" . }}
+        - name: {{ include "fastapi-app.name" . }}-{{ .Values.secondaryService.nameSuffix }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: SERVICE_NAME
-              value: {{ include "fastapi-app.fullname" . | quote }}
+              value: {{ .Values.secondaryService.serviceName | quote }}
           ports:
             - name: http
               containerPort: {{ .Values.service.targetPort }}
@@ -36,3 +39,4 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+{{- end -}}

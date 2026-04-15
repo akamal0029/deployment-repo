@@ -1,12 +1,17 @@
 replicaCount: 2
 image:
   repository: kamaldocker29/fastapi-cicd-demo
-  tag: 0915fe9
+  tag: c181747
   pullPolicy: IfNotPresent
 service:
   type: ClusterIP
   port: 80
   targetPort: 8000
+secondaryService:
+  enabled: true
+  replicaCount: 1
+  nameSuffix: secondary
+  serviceName: fastapi-secondary
 resources:
   requests:
     cpu: 100m
@@ -16,6 +21,10 @@ resources:
     memory: 512Mi
 probes:
   path: /healthz
+metrics:
+  path: /metrics
+  serviceMonitor:
+    enabled: true
 ingress:
   enabled: false
   className: nginx

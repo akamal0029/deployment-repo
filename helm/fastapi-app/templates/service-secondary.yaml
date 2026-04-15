@@ -1,9 +1,11 @@
+{{- if .Values.secondaryService.enabled -}}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "fastapi-app.fullname" . }}
+  name: {{ include "fastapi-app.fullname" . }}-{{ .Values.secondaryService.nameSuffix }}
   labels:
     {{- include "fastapi-app.labels" . | nindent 4 }}
+    app.kubernetes.io/component: {{ .Values.secondaryService.nameSuffix }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -13,4 +15,5 @@ spec:
       name: http
   selector:
     {{- include "fastapi-app.selectorLabels" . | nindent 4 }}
-    app.kubernetes.io/component: api
+    app.kubernetes.io/component: {{ .Values.secondaryService.nameSuffix }}
+{{- end -}}
